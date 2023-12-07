@@ -103,6 +103,19 @@ const filmy = [
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
 	},
+	{
+		id: 'posledni-pisen',
+		nazev: 'Poslední píseň',
+		plakat: {
+			url: 'https://1263469901.rsc.cdn77.org/resize/images/2023/08/31/external_file_6652279054929082617.webp?width=-&height=-&quality=95',
+			sirka: 420,
+			vyska: 592,
+		},
+		ochutnavka: 'Romantický film podle knižní předlohy.',
+		popis:
+			'Svět sedmnáctileté Veroniky "Ronnie" Millerové se po rozvodu rodičů otřese v samotných základech. Ronnie zůstává s matkou v rodném New Yorku, otec se rozhodne odstěhovat do malého městečka v Georgii. Je profesionálním klavíristou a svůj nový život na venkově zasvětil snaze vytvořit umělecké dílo, které by bylo ozdobou místního kostela. Ronnie se i po třech letech od rozvodu svých rodičů cítí zraněná a podvedená, a tak se její matka rozhodne, že bude v nejlepším zájmu všech zúčastněných, když Veronika stráví léto se svým otcem. Ten se snaží znovu si vybudovat láskyplný vztah se svou dcerou, ale najít cestu k mladé rebelce není jednoduché. A tak vsadí na jedinou věc, která je spojuje, na hudbu. Během pobytu u otce se dívce dramaticky změní život - zamiluje se do Willa a dozvídá se, že otec je smrtelně nemocný (csfd.cz, Česká televize)',
+		premiera: '2010-03-31',
+	}
 ]
 
 
@@ -119,4 +132,39 @@ if (vybranyFilm) {
 	ochutnavka.textContent = vybranyFilm.ochutnavka;
 	popis.innerHTML = `${vybranyFilm.popis}`
 	plakat.src = vybranyFilm.plakat.url;
+}
+
+const premiera = document.querySelector('#premiera');
+
+const formatovaniPred = pocet => {
+	if (pocet === -1) {
+		return 'dnem'
+	} else {
+		return 'dny'
+	}
+}
+
+const formatovaniZa = pocet => {
+	if (pocet === 1) {
+		return 'den'
+	} else if (pocet >= 2 && pocet <= 4) {
+		return 'dny'
+	} else {
+		return 'dní'
+	}
+}
+
+if (vybranyFilm) {
+	const premieraDen = dayjs(vybranyFilm.premiera);
+	const premieraFormat = premieraDen.format('D. M. YYYY');
+	const rozdil = premieraDen.diff(dayjs(), 'days');
+
+	if (rozdil === 0) {
+		premiera.innerHTML = `Premiéra je dnes, tedy <strong>${premieraFormat}</strong>!`
+	} else if (rozdil < 0) {
+		premiera.innerHTML = `Premiéra byla <strong>${premieraFormat}</strong>, tedy před <strong>${Math.abs(rozdil)} </strong> ${formatovaniPred(rozdil)}.`
+	} else {
+		premiera.innerHTML = `Premiéra je <strong>${premieraFormat}</strong>, tedy za <strong>${rozdil}</strong> ${formatovaniZa(rozdil)}.`
+	}
+	
 }
