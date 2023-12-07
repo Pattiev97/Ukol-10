@@ -104,3 +104,19 @@ const filmy = [
 		premiera: '2022-12-24',
 	},
 ]
+
+
+const filmId = location.hash.slice(1)
+const vybranyFilm = filmy.find(film => film.id === filmId)
+
+const nazev = document.querySelector('#detail-filmu .card-title')
+const ochutnavka = document.querySelector('#detail-filmu .card-text')
+const popis = document.querySelector('#detail-filmu .card-text')
+const plakat = document.querySelector('#detail-filmu .img-fluid')
+
+if (vybranyFilm) {
+	nazev.textContent = vybranyFilm.nazev;
+	ochutnavka.textContent = vybranyFilm.ochutnavka;
+	popis.innerHTML = `${vybranyFilm.popis}`
+	plakat.src = vybranyFilm.plakat.url;
+}

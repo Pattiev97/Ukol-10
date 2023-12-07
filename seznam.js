@@ -122,14 +122,58 @@ const seznamFilmu = document.querySelector('#seznam-filmu')
 seznamFilmu.innerHTML = ''
 
 filmy.forEach( (film) => {
+	const colDiv = document.createElement('div');
+	colDiv.classList.add('col');
+  
+	const cardDiv = document.createElement('div');
+	cardDiv.classList.add('card');
+  
+	const obrazek = document.createElement('img');
+	obrazek.src = film.plakat.url;
+	obrazek.width = 780;
+	obrazek.height = 520;
+	obrazek.classList.add('card-img-top');
+	obrazek.alt = 'plakát';
+  
+	const cardBodyDiv = document.createElement('div');
+	cardBodyDiv.classList.add('card-body');
+  
+	const nazev = document.createElement('h5');
+	nazev.classList.add('card-title');
+	nazev.textContent = film.nazev;
+  
+	const text = document.createElement('p');
+	text.classList.add('card-text');
+	text.textContent = film.ochutnavka;
+  
+	const odkaz = document.createElement('a');
+	odkaz.href = `film.html#${film.id}`;
+	odkaz.classList.add('btn', 'btn-primary');
+	odkaz.textContent = 'Přehrát';
+  
+	cardBodyDiv.appendChild(nazev);
+	cardBodyDiv.appendChild(text);
+	cardBodyDiv.appendChild(odkaz);
+  
+	cardDiv.appendChild(obrazek);
+	cardDiv.appendChild(cardBodyDiv);
+  
+	colDiv.appendChild(cardDiv);
+  
+	seznamFilmu.appendChild(colDiv);
+  });
+
+/*
+filmy.forEach( (film) => {
 	const filmElement = document.createElement('div')
 
 	filmElement.innerHTML = `
 	<img src='${film.plakat.url}' width='${film.plakat.sirka = 300}' height='${film.plakat.vyska = 620}'>
 	<h2>${film.nazev}</h2>
 	<p>${film.ochutnavka}</p>
-	<a href='film.html#${film.id}' class='btn btn-primary'>Přehrát</a>
+	
 	`	
 
 	seznamFilmu.appendChild(filmElement)
 })
+*/
