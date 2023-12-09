@@ -217,3 +217,72 @@ poznamka.addEventListener('submit', (akce) => {
 	poznamka.innerHTML = `<p class='card-text'>${komentar.value}</p>`
 })
 
+const spustit = document.querySelector('.play')
+const prehravac = document.getElementById('prehravac')
+const video = document.querySelector('video')
+const pozastavit = document.querySelector('.pause')
+const cas = document.querySelector('.current-time')
+const panel = document.querySelector('.player-controls')
+
+
+if (prehravac) {
+	spustit.addEventListener('click', () => {
+		video.play()
+		prehravac.classList.add('playing')
+
+	pozastavit.addEventListener('click', () => {
+		video.pause()
+		prehravac.classList.remove('playing')
+	})
+	
+	video.addEventListener('timeupdate', () => {
+		const aktualniCas = video.currentTime
+		const zaokrouhlenyCas = Math.round(aktualniCas)
+		const minuty = Math.floor(zaokrouhlenyCas/60)
+		const vteriny = zaokrouhlenyCas % 60
+
+	if (vteriny < 10) {
+		cas.textContent = minuty + ':0' + vteriny
+	} else {
+		cas.textContent = minuty + ':' + vteriny
+	}
+	})
+
+	document.addEventListener('keydown', (akce) => {
+		if (
+			akce.code === 'Space' &&
+			akce.target.tagName !== 'TEXTAREA' &&
+			akce.target.tagName !== 'INPUT' &&
+			akce.target.tagName !== 'BUTOON'
+		) {
+
+		akce.preventDefault()
+
+		if (video.paused) {
+			video.play()
+			prehravac.classList.add('playing')
+		} else {
+			video.pause()
+			prehravac.classList.remove('playing')
+		}
+		}
+	})
+
+	var casovac;
+
+	const skrytíPanelu = () => {
+		panel.classList.add('hidden')
+	}
+
+	const zobrazeniPanelu = () => {
+		clearTimeout(casovac)
+		panel.classList.remove('hidden')
+		casovac = setTimeout(skrytíPanelu, 3000)
+	}
+
+	video.addEventListener('mousemove', zobrazeniPanelu) 
+	video.addEventListener('keydown', zobrazeniPanelu) 
+
+	casovac = setTimeout(zobrazeniPanelu, 3000)
+})
+}
