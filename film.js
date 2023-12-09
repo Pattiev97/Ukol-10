@@ -192,3 +192,28 @@ hvezdicky.forEach( (akce, poradi) => {
 			hodnoceni(posledniHodnoceni)
 		})
 	})
+
+const poznamka = document.querySelector('#note-form')
+poznamka.addEventListener('submit', (akce) => {
+	akce.preventDefault()
+	const komentar = document.getElementById('message-input')
+	if (komentar.value === '') {
+		komentar.classList.add('is-invalid')
+		komentar.focus()
+		return
+	} else {
+		komentar.classList.remove('is-invalid')
+	}
+
+	const souhlas = document.getElementById('terms-checkbox')
+	if (!souhlas.checked) {
+		souhlas.classList.add('is-invalid')
+		komentar.focus()
+		return
+	} else {
+		souhlas.classList.remove('is-invalid')
+	}
+
+	poznamka.innerHTML = `<p class='card-text'>${komentar.value}</p>`
+})
+
