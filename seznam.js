@@ -162,18 +162,3 @@ filmy.forEach( (film) => {
   
 	seznamFilmu.appendChild(colDiv);
   });
-
-/*
-filmy.forEach( (film) => {
-	const filmElement = document.createElement('div')
-
-	filmElement.innerHTML = `
-	<img src='${film.plakat.url}' width='${film.plakat.sirka = 300}' height='${film.plakat.vyska = 620}'>
-	<h2>${film.nazev}</h2>
-	<p>${film.ochutnavka}</p>
-	
-	`	
-
-	seznamFilmu.appendChild(filmElement)
-})
-*/

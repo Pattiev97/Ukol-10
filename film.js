@@ -166,5 +166,29 @@ if (vybranyFilm) {
 	} else {
 		premiera.innerHTML = `Premiéra je <strong>${premieraFormat}</strong>, tedy za <strong>${rozdil}</strong> ${formatovaniZa(rozdil)}.`
 	}
-	
 }
+
+let posledniHodnoceni = 0
+
+const hodnoceni = pocet => {
+	const hvezdicky = document.querySelectorAll('.fa-star')
+	hvezdicky.forEach((oznaceni, index) => {
+		oznaceni.classList.toggle('fas', index + 1 <= pocet)
+		oznaceni.classList.toggle('far', index + 1 > pocet)
+	})
+}
+
+const hvezdicky = document.querySelectorAll('.fa-star')
+hvezdicky.forEach( (akce, poradi) => {
+		akce.addEventListener('click', () => {
+			posledniHodnoceni = poradi + 1
+			hodnoceni(posledniHodnoceni)
+		})
+		akce.addEventListener('mouseenter', () => {
+			const hvezdickyPoradi = poradi + 1
+			hodnoceni(hvezdickyPoradi)
+		})
+		akce.addEventListener('mouseleave', () => {
+			hodnoceni(posledniHodnoceni)
+		})
+	})
